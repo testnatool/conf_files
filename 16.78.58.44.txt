@@ -1,0 +1,246 @@
+
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname WS-3560-24PS
+!
+enable secret 5 $1$s2C1$PhruEnYPtok7t1btfeguu1
+!
+username manager privilege 15 password 0 rnetpa55
+username sm_manager privilege 15 password 0 rnetpa55
+username test_user_sm password 0 12345
+aaa new-model
+!
+!
+aaa authentication login default local
+!
+!
+!
+aaa session-id common
+ip subnet-zero
+ip routing
+!
+ip vrf test
+ description test
+!
+vtp domain paris
+vtp mode transparent
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+no spanning-tree vlan 1-2
+!
+vlan internal allocation policy ascending
+!
+vlan 154
+ name yl_7288_2813
+!
+vlan 835
+ name ra_1881_3145
+!
+vlan 904
+ name lr_1539_9584
+!
+!
+!
+!
+interface Loopback1
+ no ip address
+ shutdown
+!
+interface Port-channel1
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/1
+ description plm
+ switchport mode access
+!
+interface FastEthernet0/2
+ switchport mode dynamic desirable
+ duplex half
+!
+interface FastEthernet0/3
+ description Whoa-Nelly
+ no switchport
+ ip address 10.10.10.10 255.0.0.0
+!
+interface FastEthernet0/4
+ no switchport
+ ip address 20.1.1.1 255.0.0.0
+ ip access-group 101 in
+ ip access-group 101 out
+!
+interface FastEthernet0/5
+ no switchport
+ ip address 30.1.1.1 255.0.0.0
+ shutdown
+!
+interface FastEthernet0/6
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/7
+ no switchport
+ ip address 40.1.1.1 255.255.255.0
+ shutdown
+!
+interface FastEthernet0/8
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/9
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/10
+ switchport trunk encapsulation dot1q
+ switchport mode access
+!
+interface FastEthernet0/11
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/12
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/13
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/14
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/15
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/16
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/17
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/18
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/19
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/20
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/21
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/22
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 2
+ switchport mode trunk
+!
+interface FastEthernet0/23
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1
+ switchport mode trunk
+!
+interface FastEthernet0/24
+ switchport mode dynamic desirable
+!
+interface GigabitEthernet0/1
+ switchport mode dynamic desirable
+!
+interface GigabitEthernet0/2
+ switchport mode dynamic desirable
+!
+interface Vlan1
+ ip address 16.78.58.44 255.255.240.0
+ ipv6 address autoconfig
+ ipv6 enable
+!
+interface Vlan2
+ no ip address
+!
+router ospf 1
+ log-adjacency-changes
+ network 20.0.0.0 0.255.255.255 area 0
+ network 30.0.0.0 0.255.255.255 area 0
+ network 40.0.0.0 0.255.255.255 area 0
+!
+ip default-gateway 16.78.48.1
+ip classless
+ip route 0.0.0.0 0.0.0.0 16.78.48.1
+ip http server
+!
+!
+logging 16.78.59.61
+logging 16.78.61.116
+logging 16.78.60.122
+logging 16.78.59.78
+logging 16.78.59.1
+logging 16.78.59.17
+logging 16.78.58.244
+logging 16.87.56.129
+logging 16.78.59.68
+logging 16.78.59.224
+logging 16.78.59.160
+logging 118.194.69.72
+logging 16.78.59.111
+logging 96.187.200.30
+logging 16.78.60.118
+logging 7.86.149.90
+logging 16.78.60.123
+logging 16.78.60.107
+logging 16.78.60.109
+logging 16.53.236.167
+logging 33.5.15.27
+logging 16.78.59.27
+logging 16.78.60.106
+logging 16.78.59.115
+logging 44.30.110.98
+logging 32.21.2.211
+logging 16.78.59.20
+logging 16.78.60.190
+logging 16.78.60.126
+logging 16.87.56.110
+logging 150.150.150.150
+logging 100.100.100.100
+logging 200.200.200.200
+logging 100.100.100.150
+logging 170.150.150.150
+logging 240.200.200.200
+logging 150.100.100.100
+logging 192.168.1.5
+logging 10.50.20.5
+logging 1.2.2.1
+logging 16.87.60.36
+logging 16.78.59.86
+logging 16.78.59.87
+logging 16.87.56.56
+logging 16.78.58.236
+logging 16.78.59.88
+logging 16.25.17.101
+logging 172.23.23.52
+snmp-server group NMops v3 auth notify *tv.FFFFFFFF.FFFFFFFF.FFFFFFFF.FFFFFFFF0F 
+snmp-server community public RO
+snmp-server community private RW
+snmp-server host 16.25.17.101 version 3 auth ipvpn 
+tacacs-server host 16.53.236.225 timeout 5
+no tacacs-server directed-request
+tacacs-server key opsware
+!
+control-plane
+!
+banner exec 
+today is a sunny and warm day
+!
+line con 0
+line vty 0 4
+ session-timeout 30 
+ password rnetpa55
+ transport preferred telnet
+ transport input telnet
+line vty 5 15
+ session-timeout 30 
+ transport preferred telnet
+!
+end
