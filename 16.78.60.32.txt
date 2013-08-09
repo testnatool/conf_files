@@ -270,7 +270,7 @@ line vty 0 4
  login local
  transport input pad v120 telnet rlogin udptn
 !
-ntp clock-period 17180097
+ntp new clock-period 17180097
 ntp server 169.243.103.34
 ntp server 10.255.128.11
 ntp server 170.242.62.16
