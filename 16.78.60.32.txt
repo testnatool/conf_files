@@ -259,7 +259,7 @@ snmp-server enable traps tty
 banner login Welcome to Cisco 2621
 
 banner motd 
-A new Test Banner 
+A new test Banner for Cisco 2621
 !
 line con 0
  password 7 131719171F1C057F7E
